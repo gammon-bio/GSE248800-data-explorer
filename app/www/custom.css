@@ -1,0 +1,29 @@
+/* custom.css — GSE248800 non-myofiber explorer */
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Let tab bodies flow and scroll rather than being squeezed to the viewport. */
+.card { margin-bottom: 1rem; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12); }
+.card-header { font-weight: 600; background-color: #f8f9fa; }
+
+.sidebar { background-color: #f8f9fa; border-radius: 0.5rem; }
+
+.plot-container { min-height: 320px; overflow-y: auto; overflow-x: auto; }
+
+.gene-search .selectize-input { font-size: 1.05em; padding: 0.5em; }
+
+.download-btn { margin-top: 0.35rem; }
+
+/* Dataset toggle in the navbar */
+.dataset-toggle { margin: 0.15rem 0.25rem; }
+.dataset-toggle .btn-group { box-shadow: 0 1px 2px rgba(0,0,0,0.15); }
+.dataset-toggle .btn { font-weight: 600; }
+
+/* Keep the sub-tab nav readable on the dark card headers */
+.nav-tabs .nav-link { font-weight: 500; }
+
+@media (max-width: 768px) {
+  .card-body .plot-container { min-height: 280px; }
+}

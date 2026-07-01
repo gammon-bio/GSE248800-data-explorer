@@ -1,0 +1,13 @@
+# Only the app/ tree (code + baked-in app/data) is needed in the image.
+# Exclude the multi-GB raw/intermediate data and everything else from the build
+# context so the build stays fast.
+data-raw/
+screenshots/
+.git/
+.gitignore
+README.md
+Dockerfile
+.dockerignore
+**/.DS_Store
+**/.Rhistory
+**/rsconnect/

@@ -1,0 +1,23 @@
+# Built app data — rebuilt from GEO via data-raw/00_download.sh + 01–04.
+# (expression.h5 alone is ~675 MB; far over GitHub's 100 MB/file limit.)
+app/data/
+
+# Raw + intermediate scRNA-seq data (multi-GB) and pipeline logs
+data-raw/data/
+data-raw/_out/
+
+# Rendered preview images
+screenshots/
+
+# R / macOS cruft
+.Rproj.user/
+.Rhistory
+.RData
+.Rapp.history
+.DS_Store
+**/.DS_Store
+rsconnect/
+
+# Python bytecode
+__pycache__/
+*.pyc
