@@ -34,8 +34,15 @@ RUN R -q -e "install.packages('BiocManager'); BiocManager::install('rhdf5', upda
 RUN R -q -e "pkgs<-c('shiny','bslib','shinyWidgets','DT','plotly','ggplot2','dplyr','tidyr','viridis','scales','waiter','htmltools','rhdf5'); m<-pkgs[!pkgs %in% rownames(installed.packages())]; if(length(m)) stop('missing: ', paste(m,collapse=', ')) else cat('all runtime packages present\n')"
 
 # App + baked-in data (global.R uses app_data_dir='data' relative to the app dir).
+# Copy the large data FIRST (changes rarely) as its own layer, then the small
+# code files — so an app-code edit re-pushes only a few KB, not the ~700 MB
+# expression layer.
 WORKDIR /srv/app
-COPY app/ /srv/app/
+COPY app/data/ /srv/app/data/
+COPY app/R/ /srv/app/R/
+COPY app/modules/ /srv/app/modules/
+COPY app/www/ /srv/app/www/
+COPY app/app.R app/global.R app/ui.R app/server.R /srv/app/
 
 # Railway/Cloud Run inject $PORT and health-check against it; honour it, and
 # fall back to 3838 for a plain `docker run`.
