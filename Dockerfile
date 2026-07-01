@@ -37,5 +37,7 @@ RUN R -q -e "pkgs<-c('shiny','bslib','shinyWidgets','DT','plotly','ggplot2','dpl
 WORKDIR /srv/app
 COPY app/ /srv/app/
 
+# Railway/Cloud Run inject $PORT and health-check against it; honour it, and
+# fall back to 3838 for a plain `docker run`.
 EXPOSE 3838
-CMD ["R", "-q", "-e", "shiny::runApp('/srv/app', host='0.0.0.0', port=3838)"]
+CMD ["R", "-q", "-e", "shiny::runApp('/srv/app', host='0.0.0.0', port=as.integer(Sys.getenv('PORT','3838')))"]
