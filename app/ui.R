@@ -14,7 +14,32 @@ ui <- bslib::page_navbar(
   ),
   header = tags$head(
     waiter::useWaiter(),
-    includeCSS("www/custom.css")
+    includeCSS("www/custom.css"),
+    tags$script(HTML(sprintf("window.IDLE_MINUTES = %d;", IDLE_MINUTES))),
+    tags$script(src = "idle-timeout.js")
+  ),
+
+  # GitHub attribution + the (hidden) idle-timeout overlay.
+  footer = tagList(
+    tags$div(
+      class = "app-footer",
+      HTML("GSE248800 non-myofiber scRNA-seq explorer &nbsp;•&nbsp; built by "),
+      tags$a(href = "https://github.com/gammon-bio", target = "_blank", "gammon-bio"),
+      HTML("&nbsp;•&nbsp;"),
+      tags$a(href = "https://github.com/gammon-bio/GSE248800-data-explorer",
+             target = "_blank", "source on GitHub")
+    ),
+    tags$div(
+      id = "idle-overlay", class = "idle-overlay",
+      tags$div(
+        class = "idle-box",
+        tags$h4("Session paused"),
+        tags$p(sprintf("Paused after %d minutes of inactivity to save server resources.",
+                       IDLE_MINUTES)),
+        tags$button(class = "btn btn-primary", onclick = "location.reload()",
+                    "Reload to resume")
+      )
+    )
   ),
 
   nav_panel("Gene Explorer",        icon = icon("dna"),          geneExplorerUI("gene")),

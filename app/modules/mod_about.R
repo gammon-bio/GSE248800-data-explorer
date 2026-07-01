@@ -55,7 +55,10 @@ aboutUI <- function(id) {
                   "should be validated experimentally. "),
           "GEO: ",
           tags$a(href = "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE248800",
-                 target = "_blank", "GSE248800"), ".")
+                 target = "_blank", "GSE248800"),
+          " · Code & pipeline: ",
+          tags$a(href = "https://github.com/gammon-bio/GSE248800-data-explorer",
+                 target = "_blank", "github.com/gammon-bio/GSE248800-data-explorer"), ".")
       )
     )
   )

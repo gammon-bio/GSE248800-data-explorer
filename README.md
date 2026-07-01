@@ -1,5 +1,7 @@
 # GSE248800 — Muscle Non-myofiber scRNA-seq Explorer
 
+**Live app:** https://gse248800-data-explorer-production.up.railway.app/ · by [gammon-bio](https://github.com/gammon-bio)
+
 Interactive Shiny app for the **non-myofiber (mononuclear) compartment** of
 skeletal muscle in cancer cachexia, from **GSE248800** (“Muscle Inflammation is
 Regulated by NF-κB from Multiple Cells to Control Distinct States of Wasting in
@@ -56,8 +58,18 @@ The same image runs anywhere a container does:
 - **A VPS** — `docker run -d --restart unless-stopped -p 80:3838 bryce-scrnaseq` behind nginx/Caddy for TLS.
 - **shinyapps.io** is not recommended here (the 675 MB data strains its bundle/tier limits); use a container instead.
 
-Give the container ~2 GB RAM: the HDF5 matrices stay on disk (read one gene at a
-time), so RAM is dominated by the metadata/DE/pathway tables, not the expression.
+Memory: the HDF5 matrices stay on disk (read one gene at a time), so the app boots
+in ~310 MB and runs comfortably in **1 GB** (2 GB gives headroom for many users).
+
+**Cross-arch note:** build for the host arch of your platform. Railway/Cloud Run run
+`linux/amd64`, so on an Apple Silicon Mac build with buildx:
+`docker buildx build --platform linux/amd64 -t ghcr.io/gammon-bio/gse248800-data-explorer:latest --push .`
+
+**Idle sleep (serverless):** the app has no background timers, and a client-side
+idle timeout (`app/www/idle-timeout.js`) closes the WebSocket after **`IDLE_MINUTES`**
+(default 15) of no interaction — so a forgotten open tab stops holding the container
+awake and a serverless host can scale it to zero. Lower it per-deploy by setting the
+`IDLE_MINUTES` env var (e.g. `10`).
 
 ## Rebuild the data (`data-raw/`)
 

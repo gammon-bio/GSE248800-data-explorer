@@ -27,3 +27,36 @@ body {
 @media (max-width: 768px) {
   .card-body .plot-container { min-height: 280px; }
 }
+
+/* GitHub attribution footer */
+.app-footer {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #7f8c8d;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid #e9ecef;
+  margin-top: 1rem;
+}
+.app-footer a { color: #2C3E50; font-weight: 600; text-decoration: none; }
+.app-footer a:hover { text-decoration: underline; }
+
+/* Idle-timeout overlay (shown by www/idle-timeout.js after inactivity) */
+.idle-overlay {
+  display: none;                 /* JS flips to flex on timeout */
+  position: fixed;
+  inset: 0;
+  background: rgba(44, 62, 80, 0.9);
+  z-index: 99999;
+  align-items: center;
+  justify-content: center;
+}
+.idle-box {
+  background: #fff;
+  border-radius: 0.6rem;
+  padding: 2rem 2.5rem;
+  max-width: 420px;
+  text-align: center;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+}
+.idle-box h4 { color: #2C3E50; margin-bottom: 0.5rem; }
+.idle-box p { color: #555; margin-bottom: 1.25rem; }

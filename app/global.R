@@ -24,6 +24,13 @@ suppressPackageStartupMessages({
 
 app_data_dir <- "data"
 
+# Idle timeout (minutes). After this long with no user interaction the client
+# closes its Shiny WebSocket so a forgotten open tab stops holding the server
+# awake — letting a serverless host (Railway) sleep the container and not burn
+# credits. Override per-deploy with the IDLE_MINUTES env var.
+IDLE_MINUTES <- as.integer(Sys.getenv("IDLE_MINUTES", "15"))
+if (is.na(IDLE_MINUTES) || IDLE_MINUTES < 1) IDLE_MINUTES <- 15
+
 # --- Dataset registry -------------------------------------------------------
 # key -> display label (order = navbar toggle order). Pancreatic first.
 DATASET_LABELS <- c(
